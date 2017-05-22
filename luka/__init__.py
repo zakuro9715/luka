@@ -67,10 +67,10 @@ class Luka(object):
         s = Snapshot(id, message)
         self.snapshots[id] = s
 
-        self.snapshot_taked.notify(self, s)
-
         if save:
             self.save()
+
+        self.snapshot_taked.notify(self, s)
         return s
 
     def restore_snapshot(self, s):
@@ -79,9 +79,11 @@ class Luka(object):
 
     def remove_snapshot(self, s, save=True):
         os.remove(self.build_snapshot_path(s.id))
-        self.snapshot_removed.notify(self, s)
+        self.snapshots.pop(s.id)
         if save:
             self.save()
+        self.snapshot_removed.notify(self, s)
+        
 
     def create_directory(self):
          os.mkdir(self.luka_directory())

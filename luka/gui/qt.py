@@ -7,7 +7,7 @@ from PySide.QtGui import *
 import luka
 
 
-def removeChildren(item, i = 0):
+def removeChildrenRecursive(item, i = 0):
     if i > 50:
         raise Exception()
     while item.count() > 0: 
